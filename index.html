@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title></title><script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script><script>; (function (designWidth, maxWidth) {
+            var doc = document,
+                win = window;
+            var docEl = doc.documentElement;
+            var tid;
+            var rootItem, rootStyle;
+
+            function refreshRem() {
+                var width = docEl.getBoundingClientRect().width;
+                if (!maxWidth) {
+                    maxWidth = 540;
+                }
+                ;
+                if (width > maxWidth) {
+                    width = maxWidth;
+                }
+                //与淘宝做法不同，直接采用简单的rem换算方法1rem=100px
+                var rem = width * 100 / designWidth;
+                //兼容UC开始
+                rootStyle = "html{font-size:" + rem + 'px !important}';
+                rootItem = document.getElementById('rootsize') || document.createElement("style");
+                if (!document.getElementById('rootsize')) {
+                    document.getElementsByTagName("head")[0].appendChild(rootItem);
+                    rootItem.id = 'rootsize';
+                }
+                if (rootItem.styleSheet) {
+                    rootItem.styleSheet.disabled || (rootItem.styleSheet.cssText = rootStyle)
+                } else {
+                    try {
+                        rootItem.innerHTML = rootStyle
+                    } catch (f) {
+                        rootItem.innerText = rootStyle
+                    }
+                }
+                //兼容UC结束
+                docEl.style.fontSize = rem + "px";
+            };
+            refreshRem();
+
+            win.addEventListener("resize", function () {
+                clearTimeout(tid); //防止执行两次
+                tid = setTimeout(refreshRem, 300);
+            }, false);
+
+            win.addEventListener("pageshow", function (e) {
+                if (e.persisted) { // 浏览器后退的时候重新计算
+                    clearTimeout(tid);
+                    tid = setTimeout(refreshRem, 300);
+                }
+            }, false);
+
+            if (doc.readyState === "complete") {
+                doc.body.style.fontSize = "16px";
+            } else {
+                doc.addEventListener("DOMContentLoaded", function (e) {
+                    doc.body.style.fontSize = "16px";
+                }, false);
+            }
+        })(750, 750);</script><link href="/static/css/chunk-3f0c7e37.a4a72195.css" rel="prefetch"><link href="/static/css/chunk-410bb456.4b282ba2.css" rel="prefetch"><link href="/static/css/chunk-71fafbb0.aa072add.css" rel="prefetch"><link href="/static/css/chunk-74ceb730.1ef16d63.css" rel="prefetch"><link href="/static/css/chunk-78653341.116a0142.css" rel="prefetch"><link href="/static/js/chunk-3d62ea44.2c779ba6.js" rel="prefetch"><link href="/static/js/chunk-3f0c7e37.032f2db4.js" rel="prefetch"><link href="/static/js/chunk-410bb456.51bb2a17.js" rel="prefetch"><link href="/static/js/chunk-71fafbb0.5f83c207.js" rel="prefetch"><link href="/static/js/chunk-74ceb730.d9f1dc89.js" rel="prefetch"><link href="/static/js/chunk-78653341.903ebb99.js" rel="prefetch"><link href="/static/css/app.3d5ba286.css" rel="preload" as="style"><link href="/static/js/app.e6ba2625.js" rel="preload" as="script"><link href="/static/js/chunk-vendors.2d4d84ab.js" rel="preload" as="script"><link href="/static/css/app.3d5ba286.css" rel="stylesheet"></head><body><div id="app"></div><script src="/static/js/chunk-vendors.2d4d84ab.js"></script><script src="/static/js/app.e6ba2625.js"></script></body></html>
